@@ -1,14 +1,25 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class Calculator {
+
+import static javax.swing.JTextField.*;
+
+public class Calculator implements ActionListener {
     public JFrame window = new JFrame("Calculator");
     public JTextField input = new JTextField();
+    JButton button_1, button_2, button_3, button_4, button_5, button_6, button_7, button_8, button_9, button_10, button_11, button_12, button_13, button_14, button_15;
+    int num_1 = 0;
+    int num_2 = 0;
+    int operation = 0;
+    int sum = 0;
+
 
     public Calculator() {
 
-        window.setSize(480,405);
+        window.setSize(400, 480);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setBackground(Color.BLUE);
         window.setLocationRelativeTo(null);
@@ -17,7 +28,6 @@ public class Calculator {
 
         enter_area();
         buttons();
-//        result();
 
         window.setVisible(true);
     }
@@ -25,84 +35,122 @@ public class Calculator {
     public void enter_area() {
         input.setFont(new Font("Arial", Font.BOLD, 25));
         input.setBackground(Color.WHITE);
-        input.setBounds(16,10, 248, 36);
-        input.setHorizontalAlignment(JTextField.RIGHT);
+        input.setBounds(5, 5, 280, 40);
+        input.setHorizontalAlignment(RIGHT);
 
         window.add(input);
-        KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
-        manager.addKeyEventDispatcher(new KeyDispatcher());
-
     }
-    class KeyDispatcher implements KeyEventDispatcher {
 
-        @Override
-        public boolean dispatchKeyEvent(KeyEvent e) {
-            if(e.getKeyCode() == KeyEvent.VK_ENTER) {
-//                result();
-            }
-            if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-                input.setText("");
-            }
-            return false;
-        }
-    }
-    public void buttons(){
-        String[][] arr = {{"1","2","3","С"}, {"4","5","6","*"}, {"7","8","9","-"}, {"0",".","+","/"}, {"(",")","="}};
+    public void buttons() {
+        String[][] arr = {{"1", "2", "3", "C"}, {"4", "5", "6", "*"}, {"7", "8", "9", "-"}, {"0", ".", "+", "/"}, {"(", ")", "="}};
 
-        for(int i = 0; i < arr.length; i++) {
-            for(int e = 0; e < arr[i].length; e++) {
+        for (int i = 0; i < arr.length; i++) {
+            for (int e = 0; e < arr[i].length; e++) {
                 JButton jbutton = new JButton();
                 jbutton.setText(arr[i][e]);
-                jbutton.setMargin(new Insets(0, 0, 0,0));
-                if(arr[i].length == 3 && e == 2) {
+                jbutton.setMargin(new Insets(0, 0, 0, 0));
+                if (arr[i].length == 3 && e == 2) {
                     jbutton.setBounds(16 + e * 62, 55 + i * 62, 122, 60);
-                }
-                else {
+                } else {
                     jbutton.setBounds(16 + e * 62, 55 + i * 62, 60, 60);
                 }
                 jbutton.setFocusable(false);
-                JButton jButton1 = new JButton(arr[1][2]);
                 window.add(jbutton);
-                window.add(jButton1);
-
-                ActionListener num_button = new GoNumListener();
-                jbutton.addActionListener(num_button);
-
-
-
-
+                jbutton.addActionListener(this);
 
             }
+
         }
-    }
-    public class GoNumListener implements ActionListener {
-        String name;
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            name = ((JButton) e.getSource()).getText();
-            if(name != "=" || name != "C") {
-                input.setText(input.getText() + name);
-            }
-            if (name == "=") { // если нажата "=" - считаем результат
-
-
-            }
-            if (name == "С") {  // если нажата "С" - очищаем поле ввода
-                input.setText("");
-            }
-
-
-            window.repaint();
-        }
-
 
     }
 
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String button_text = ((JButton) e.getSource()).getText();
 
+        if (button_text.equals("1")) {
+            input.setText("1");
+        }
+        if (button_text.equals("2")) {
+            input.setText("2");
+        }
+        if (button_text.equals("3")) {
+            input.setText("3");
+        }
+        if (button_text.equals("4")) {
+            input.setText("4");
+        }
+        if (button_text.equals("5")) {
+            input.setText("5");
+        }
+        if (button_text.equals("6")) {
+            input.setText("6");
+        }
+        if (button_text.equals("7")) {
+            input.setText("7");
+        }
+        if (button_text.equals("8")) {
+            input.setText("8");
+        }
+        if (button_text.equals("9")) {
+            input.setText("9");
+        }
+        if (button_text.equals("0")) {
+            input.setText("0");
+        }
+        if (button_text.equals("+")) {
+            num_1 = Integer.parseInt(input.getText());
+            operation = 1;
+            input.setText("+");
+        }
+        if (button_text.equals("-")) {
+            num_1 = Integer.parseInt(input.getText());
+            operation = 2;
+            input.setText("-");
+        }
+        if (button_text.equals("*")) {
+            num_1 = Integer.parseInt(input.getText());
+            operation = 3;
+            input.setText("*");
+        }
+        if (button_text.equals("/")) {
+            num_1 = Integer.parseInt(input.getText());
+            operation = 4;
+            input.setText("/");
+        }
+        if (button_text.equals("=")) {
+            num_2 = Integer.parseInt(input.getText());
+            switch (operation) {
+                case 1:
+                    sum = num_1 + num_2;
+                    break;
+                case 2:
+                    sum = num_1 - num_2;
+                    break;
+                case 3:
+                    sum = num_1 * num_2;
+                    break;
+                case 4:
+                    sum = num_1 / num_2;
+                    break;
+                default:
+                    sum = 0;
+            }
+            input.setText("" + sum);
 
-
-
+        }
+    }
 
 }
+
+
+
+
+
+
+
+
+
+
+
