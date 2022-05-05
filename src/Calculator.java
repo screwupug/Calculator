@@ -1,115 +1,108 @@
 import java.awt.*;
 import java.awt.event.*;
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
-import javax.script.ScriptException;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JTextField;
+import javax.swing.*;
 
 public class Calculator {
-    public JFrame window = new JFrame();
+    public JFrame window = new JFrame("Calculator");
     public JTextField input = new JTextField();
 
     public Calculator() {
-        window.setSize(480, 405);
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.setLocationRelativeTo(null);
-        window.setBackground(Color.WHITE);
-        window.setResizable(false);
 
-        window.setVisible(true);
+        window.setSize(480,405);
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.setBackground(Color.BLUE);
+        window.setLocationRelativeTo(null);
+        window.setResizable(false);
+        window.setLayout(null);
+
         enter_area();
         buttons();
+//        result();
 
+        window.setVisible(true);
     }
+
     public void enter_area() {
-
-
-        input.setFont(new Font("Arial", Font.BOLD, 24));
-        input.setBounds(16, 10, 248, 36);
-        input.setBackground(Color.white);
+        input.setFont(new Font("Arial", Font.BOLD, 25));
+        input.setBackground(Color.WHITE);
+        input.setBounds(16,10, 248, 36);
         input.setHorizontalAlignment(JTextField.RIGHT);
+
         window.add(input);
-
-
         KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
-        manager.addKeyEventDispatcher(e -> {
-            if(e.getKeyCode() == KeyEvent.VK_ENTER)
-                result();
-            if(e.getKeyCode() == KeyEvent.VK_ESCAPE)
-                input.setText("");
-            return false;
+        manager.addKeyEventDispatcher(new KeyDispatcher());
 
-        });
     }
+    class KeyDispatcher implements KeyEventDispatcher {
 
-
-    public void buttons() {
-        String[][] arr = {{"1","2","3","С"}, {"4","5","6","*"}, {"7","8","9","-"}, {"0",".","+","/"}, {"(",")","="}};
-        JButton[][] buttons_enum = new JButton[arr.length][];
-
-        for (int i = 0; i < buttons_enum.length; i++) {
-            for (int r = 0; r < buttons_enum[i].length; r++) {
-                JButton jButton = new JButton();
-                jButton.setFont(new Font("Arial", Font.PLAIN, 36));
-                jButton.setText(arr[i][r]);
-                jButton.setMargin(new Insets(0,0,0,0));
-                if (buttons_enum[i].length == 3 && r == 2)
-                {
-                    jButton.setBounds(16+r*62, 55+i*62, 60, 60);
-                }
-                else
-                {
-                    jButton.setBounds(16+r*62, 55+i*62, 122, 60);
-                }
-                jButton.setFocusable(false);
-
-                window.add(jButton);
-//                jbutton_n.addActionListener(new GoNumListener());
-
+        @Override
+        public boolean dispatchKeyEvent(KeyEvent e) {
+            if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+//                result();
             }
-
+            if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                input.setText("");
+            }
+            return false;
         }
     }
+    public void buttons(){
+        String[][] arr = {{"1","2","3","С"}, {"4","5","6","*"}, {"7","8","9","-"}, {"0",".","+","/"}, {"(",")","="}};
 
+        for(int i = 0; i < arr.length; i++) {
+            for(int e = 0; e < arr[i].length; e++) {
+                JButton jbutton = new JButton();
+                jbutton.setText(arr[i][e]);
+                jbutton.setMargin(new Insets(0, 0, 0,0));
+                if(arr[i].length == 3 && e == 2) {
+                    jbutton.setBounds(16 + e * 62, 55 + i * 62, 122, 60);
+                }
+                else {
+                    jbutton.setBounds(16 + e * 62, 55 + i * 62, 60, 60);
+                }
+                jbutton.setFocusable(false);
+                JButton jButton1 = new JButton(arr[1][2]);
+                window.add(jbutton);
+                window.add(jButton1);
+
+                ActionListener num_button = new GoNumListener();
+                jbutton.addActionListener(num_button);
+
+
+
+
+
+            }
+        }
+    }
     public class GoNumListener implements ActionListener {
+        String name;
+
         @Override
         public void actionPerformed(ActionEvent e) {
-            String name = ((JButton) e.getSource()).getText();  // получаем текст с кнопки в переменную
-
-            if (name == "=" || name == "С") {
-                //...
-            } else {
-                // если нажата не "=" и не "С" - добавляем в поле ввода значение кнопки
+            name = ((JButton) e.getSource()).getText();
+            if(name != "=" || name != "C") {
                 input.setText(input.getText() + name);
             }
+            if (name == "=") { // если нажата "=" - считаем результат
 
-            if (name == "=") {  // если нажата "=" - считаем результат
-                result();
+
             }
-
             if (name == "С") {  // если нажата "С" - очищаем поле ввода
                 input.setText("");
             }
 
-            window.repaint();   // перерисовываем окно
+
+            window.repaint();
         }
+
+
     }
-    private void result() {
-        ScriptEngineManager factory = new ScriptEngineManager();
-            ScriptEngine engine = factory.getEngineByName("JavaScript");
-        try {
-            input.setText("" + engine.eval(input.getText()));
-        } catch (ScriptException e1) {
-            //...
-        }
-    }
+
+
+
+
+
+
+
 }
-
-
-
-
-
-
-
