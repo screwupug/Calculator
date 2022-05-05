@@ -1,5 +1,4 @@
 import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -69,98 +68,58 @@ public class Calculator implements ActionListener {
         String button_text = ((JButton) e.getSource()).getText();
 
         switch (button_text) {
-            case "1":
-                input.setText(input.getText() + "1");
-                break;
-            case "2":
-                input.setText(input.getText() + "2");
-                break;
-            case "3":
-                input.setText(input.getText() + "3");
-                break;
-            case "4":
-                input.setText(input.getText() + "4");
-                break;
-            case "5":
-                input.setText(input.getText() + "5");
-                break;
-            case "6":
-                input.setText(input.getText() + "6");
-                break;
-            case "7":
-                input.setText(input.getText() + "7");
-                break;
-            case "8":
-                input.setText(input.getText() + "8");
-                break;
-            case "9":
-                input.setText(input.getText() + "9");
-                break;
-            case "0":
-                input.setText(input.getText() +"0");
-                break;
-            case "+":
+            case "1" -> input.setText(input.getText() + "1");
+            case "2" -> input.setText(input.getText() + "2");
+            case "3" -> input.setText(input.getText() + "3");
+            case "4" -> input.setText(input.getText() + "4");
+            case "5" -> input.setText(input.getText() + "5");
+            case "6" -> input.setText(input.getText() + "6");
+            case "7" -> input.setText(input.getText() + "7");
+            case "8" -> input.setText(input.getText() + "8");
+            case "9" -> input.setText(input.getText() + "9");
+            case "0" -> input.setText(input.getText() + "0");
+            case "+" -> {
                 num_1 = Integer.parseInt(input.getText());
                 operation = 1;
                 input.setText(input.getText() + "+");
-                break;
-            case "-":
+            }
+            case "-" -> {
                 num_1 = Integer.parseInt(input.getText());
                 operation = 2;
                 input.setText(input.getText() + "-");
-                break;
-            case "*":
+            }
+            case "*" -> {
                 num_1 = Integer.parseInt(input.getText());
                 operation = 3;
                 input.setText(input.getText() + "*");
-                break;
-            case "/":
+            }
+            case "/" -> {
                 num_1 = Integer.parseInt(input.getText());
                 operation = 4;
                 input.setText(input.getText() + "/");
-                break;
-            case "C":
-                input.setText(input.getText() + "");
-                break;
-            case "=":
+            }
+            case "C" -> input.setText(input.getText() + "");
+            case "=" -> {
                 num_2 = Integer.parseInt(input.getText());
                 switch (operation) {
-                    case 1:
-                        sum = num_1 + num_2;
-                        break;
-                    case 2:
-                        sum = num_1 - num_2;
-                        break;
-                    case 3:
-                        sum = num_1 * num_2;
-                        break;
-                    case 4:
-                        sum = num_1 / num_2;
-                        break;
-                    default:
-                        sum = 0;
+                    case 1 -> sum = num_1 + num_2;
+                    case 2 -> sum = num_1 - num_2;
+                    case 3 -> sum = num_1 * num_2;
+                    case 4 -> sum = num_1 / num_2;
+                    default -> sum = 0;
                 }
-                break;
+            }
         }
 
 
         if (button_text.equals("=")) {
             num_2 = Integer.parseInt(input.getText());
             switch (operation) {
-                case 1:
-                    sum = num_1 + num_2;
-                    break;
-                case 2:
-                    sum = num_1 - num_2;
-                    break;
-                case 3:
-                    sum = num_1 * num_2;
-                    break;
-                case 4:
-                    sum = num_1 / num_2;
-                    break;
-                default:
-                    sum = 0;
+                case 1 -> sum = num_1 + num_2;
+                case 2 -> sum = num_1 - num_2;
+                case 3 -> sum = num_1 * num_2;
+                case 4 -> sum = num_1 / num_2;
+                default -> sum = 0;
             }
             input.setText("" + sum);
 
