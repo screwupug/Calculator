@@ -10,7 +10,6 @@ import static javax.swing.JTextField.*;
 public class Calculator implements ActionListener {
     public JFrame window = new JFrame("Calculator");
     public JTextField input = new JTextField();
-    JButton button_1, button_2, button_3, button_4, button_5, button_6, button_7, button_8, button_9, button_10, button_11, button_12, button_13, button_14, button_15;
     int num_1 = 0;
     int num_2 = 0;
     int operation = 0;
@@ -21,7 +20,7 @@ public class Calculator implements ActionListener {
 
         window.setSize(400, 480);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.setBackground(Color.BLUE);
+        window.setBackground(Color.WHITE);
         window.setLocationRelativeTo(null);
         window.setResizable(false);
         window.setLayout(null);
