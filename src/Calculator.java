@@ -69,56 +69,82 @@ public class Calculator implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String button_text = ((JButton) e.getSource()).getText();
 
-        if (button_text.equals("1")) {
-            input.setText("1");
+        switch (button_text) {
+            case "1":
+                input.setText(input.getText() + "1");
+                break;
+            case "2":
+                input.setText(input.getText() + "2");
+                break;
+            case "3":
+                input.setText(input.getText() + "3");
+                break;
+            case "4":
+                input.setText(input.getText() + "4");
+                break;
+            case "5":
+                input.setText(input.getText() + "5");
+                break;
+            case "6":
+                input.setText(input.getText() + "6");
+                break;
+            case "7":
+                input.setText(input.getText() + "7");
+                break;
+            case "8":
+                input.setText(input.getText() + "8");
+                break;
+            case "9":
+                input.setText(input.getText() + "9");
+                break;
+            case "0":
+                input.setText(input.getText() +"0");
+                break;
+            case "+":
+                num_1 = Integer.parseInt(input.getText());
+                operation = 1;
+                input.setText(input.getText() + "+");
+                break;
+            case "-":
+                num_1 = Integer.parseInt(input.getText());
+                operation = 2;
+                input.setText(input.getText() + "-");
+                break;
+            case "*":
+                num_1 = Integer.parseInt(input.getText());
+                operation = 3;
+                input.setText(input.getText() + "*");
+                break;
+            case "/":
+                num_1 = Integer.parseInt(input.getText());
+                operation = 4;
+                input.setText(input.getText() + "/");
+                break;
+            case "C":
+                input.setText(input.getText() + "");
+                break;
+            case "=":
+                num_2 = Integer.parseInt(input.getText());
+                switch (operation) {
+                    case 1:
+                        sum = num_1 + num_2;
+                        break;
+                    case 2:
+                        sum = num_1 - num_2;
+                        break;
+                    case 3:
+                        sum = num_1 * num_2;
+                        break;
+                    case 4:
+                        sum = num_1 / num_2;
+                        break;
+                    default:
+                        sum = 0;
+                }
+                break;
         }
-        if (button_text.equals("2")) {
-            input.setText("2");
-        }
-        if (button_text.equals("3")) {
-            input.setText("3");
-        }
-        if (button_text.equals("4")) {
-            input.setText("4");
-        }
-        if (button_text.equals("5")) {
-            input.setText("5");
-        }
-        if (button_text.equals("6")) {
-            input.setText("6");
-        }
-        if (button_text.equals("7")) {
-            input.setText("7");
-        }
-        if (button_text.equals("8")) {
-            input.setText("8");
-        }
-        if (button_text.equals("9")) {
-            input.setText("9");
-        }
-        if (button_text.equals("0")) {
-            input.setText("0");
-        }
-        if (button_text.equals("+")) {
-            num_1 = Integer.parseInt(input.getText());
-            operation = 1;
-            input.setText("+");
-        }
-        if (button_text.equals("-")) {
-            num_1 = Integer.parseInt(input.getText());
-            operation = 2;
-            input.setText("-");
-        }
-        if (button_text.equals("*")) {
-            num_1 = Integer.parseInt(input.getText());
-            operation = 3;
-            input.setText("*");
-        }
-        if (button_text.equals("/")) {
-            num_1 = Integer.parseInt(input.getText());
-            operation = 4;
-            input.setText("/");
-        }
+
+
         if (button_text.equals("=")) {
             num_2 = Integer.parseInt(input.getText());
             switch (operation) {
