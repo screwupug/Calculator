@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.awt.event.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,6 +10,7 @@ import static javax.swing.JTextField.*;
 public class Calculator implements ActionListener {
     public JFrame window = new JFrame("Calculator");
     public JTextField input = new JTextField();
+    JButton button_1, button_2, button_3, button_4, button_5, button_6, button_7, button_8, button_9, button_10, button_11, button_12, button_13, button_14, button_15;
     int num_1 = 0;
     int num_2 = 0;
     int operation = 0;
@@ -19,7 +21,7 @@ public class Calculator implements ActionListener {
 
         window.setSize(400, 480);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.setBackground(Color.WHITE);
+        window.setBackground(Color.BLUE);
         window.setLocationRelativeTo(null);
         window.setResizable(false);
         window.setLayout(null);
@@ -67,59 +69,82 @@ public class Calculator implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String button_text = ((JButton) e.getSource()).getText();
 
-        switch (button_text) {
-            case "1" -> input.setText(input.getText() + "1");
-            case "2" -> input.setText(input.getText() + "2");
-            case "3" -> input.setText(input.getText() + "3");
-            case "4" -> input.setText(input.getText() + "4");
-            case "5" -> input.setText(input.getText() + "5");
-            case "6" -> input.setText(input.getText() + "6");
-            case "7" -> input.setText(input.getText() + "7");
-            case "8" -> input.setText(input.getText() + "8");
-            case "9" -> input.setText(input.getText() + "9");
-            case "0" -> input.setText(input.getText() + "0");
-            case "+" -> {
-                num_1 = Integer.parseInt(input.getText());
-                operation = 1;
-                input.setText(input.getText() + "+");
-            }
-            case "-" -> {
-                num_1 = Integer.parseInt(input.getText());
-                operation = 2;
-                input.setText(input.getText() + "-");
-            }
-            case "*" -> {
-                num_1 = Integer.parseInt(input.getText());
-                operation = 3;
-                input.setText(input.getText() + "*");
-            }
-            case "/" -> {
-                num_1 = Integer.parseInt(input.getText());
-                operation = 4;
-                input.setText(input.getText() + "/");
-            }
-            case "C" -> input.setText(input.getText() + "");
-            case "=" -> {
-                num_2 = Integer.parseInt(input.getText());
-                switch (operation) {
-                    case 1 -> sum = num_1 + num_2;
-                    case 2 -> sum = num_1 - num_2;
-                    case 3 -> sum = num_1 * num_2;
-                    case 4 -> sum = num_1 / num_2;
-                    default -> sum = 0;
-                }
-            }
+
+        if (button_text.equals("1")) {
+            input.setText("1");
         }
-
-
+        if (button_text.equals("2")) {
+            input.setText("2");
+        }
+        if (button_text.equals("3")) {
+            input.setText("3");
+        }
+        if (button_text.equals("4")) {
+            input.setText("4");
+        }
+        if (button_text.equals("5")) {
+            input.setText("5");
+        }
+        if (button_text.equals("6")) {
+            input.setText("6");
+        }
+        if (button_text.equals("7")) {
+            input.setText("7");
+        }
+        if (button_text.equals("8")) {
+            input.setText("8");
+        }
+        if (button_text.equals("9")) {
+            input.setText("9");
+        }
+        if (button_text.equals("0")) {
+            input.setText("0");
+        }
+        if (button_text.equals("+")) {
+            num_1 = Integer.parseInt(input.getText());
+            operation = 1;
+            input.setText("+");
+        }
+        if (button_text.equals("-")) {
+            num_1 = Integer.parseInt(input.getText());
+            operation = 2;
+            input.setText("-");
+        }
+        if (button_text.equals("*")) {
+            num_1 = Integer.parseInt(input.getText());
+            operation = 3;
+            input.setText("*");
+        }
+        if (button_text.equals("/")) {
+            num_1 = Integer.parseInt(input.getText());
+            operation = 4;
+            input.setText("/");
+        }
+        if (button_text.equals("C")) {
+            input.setText("");
+        }
         if (button_text.equals("=")) {
             num_2 = Integer.parseInt(input.getText());
             switch (operation) {
-                case 1 -> sum = num_1 + num_2;
-                case 2 -> sum = num_1 - num_2;
-                case 3 -> sum = num_1 * num_2;
-                case 4 -> sum = num_1 / num_2;
-                default -> sum = 0;
+                case 1:
+                    sum = num_1 + num_2;
+                    break;
+                case 2:
+                    sum = num_1 - num_2;
+                    break;
+                case 3:
+                    sum = num_1 * num_2;
+                    break;
+                case 4:
+                    sum = num_1 / num_2;
+                    if(num_1 == 0 || num_2 == 0) {
+                        input.setText("Îøèáêà");
+                    } else {
+                        input.setText("" + sum);
+                    }
+                    break;
+                default:
+                    sum = 0;
             }
             input.setText("" + sum);
 
