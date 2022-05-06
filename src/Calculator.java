@@ -11,10 +11,10 @@ public class Calculator implements ActionListener {
     public JFrame window = new JFrame("Calculator");
     public JTextField input = new JTextField();
     JButton button_1, button_2, button_3, button_4, button_5, button_6, button_7, button_8, button_9, button_10, button_11, button_12, button_13, button_14, button_15;
-    int num_1 = 0;
-    int num_2 = 0;
+    double num_1 = 0;
+    double num_2 = 0;
     int operation = 0;
-    int sum = 0;
+    double sum = 0;
 
 
     public Calculator() {
@@ -23,7 +23,7 @@ public class Calculator implements ActionListener {
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setBackground(Color.BLUE);
         window.setLocationRelativeTo(null);
-        window.setResizable(false);
+        window.setResizable(true);
         window.setLayout(null);
 
         enter_area();
@@ -69,86 +69,86 @@ public class Calculator implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String button_text = ((JButton) e.getSource()).getText();
 
+        switch (button_text) {
+            case "1":
+                input.setText(input.getText().concat("1"));
+                break;
+            case "2":
+                input.setText(input.getText().concat("2"));
+                break;
+            case "3":
+                input.setText(input.getText().concat("3"));
+                break;
+            case "4":
+                input.setText(input.getText().concat("4"));
+                break;
+            case "5":
+                input.setText(input.getText().concat("5"));
+                break;
+            case "6":
+                input.setText(input.getText().concat("6"));
+                break;
+            case "7":
+                input.setText(input.getText().concat("7"));
+                break;
+            case "8":
+                input.setText(input.getText().concat("8"));
+                break;
+            case "9":
+                input.setText(input.getText().concat("9"));
+                break;
+            case "0":
+                input.setText(input.getText().concat("0"));
+                break;
+            case ".":
+                input.setText(input.getText().concat("."));
+                break;
+            case "C":
+                input.setText("");
+                break;
+            case "+":
+                num_1 = Double.parseDouble(input.getText());
+                operation = 1;
+                input.setText("");
+                break;
+            case "-":
+                num_1 = Double.parseDouble(input.getText());
+                operation = 2;
+                input.setText("");
+                break;
+            case "*":
+                num_1 = Double.parseDouble(input.getText());
+                operation = 3;
+                input.setText("");
+                break;
+            case "/":
+                num_1 = Double.parseDouble(input.getText());
+                operation = 4;
+                input.setText("");
+                break;
+            case "=":
+                num_2 = Double.parseDouble(input.getText());
+                switch (operation) {
+                    case 1:
+                        sum = num_1 + num_2;
+                        break;
+                    case 2:
+                        sum = num_1 - num_2;
+                        break;
+                    case 3:
+                        sum = num_1 * num_2;
+                        break;
+                    case 4:
+                        sum = num_1 / num_2;
+                        break;
+                    default:
+                        sum = 0;
+                }
+                input.setText("" + sum);
+                break;
 
-        if (button_text.equals("1")) {
-            input.setText("1");
         }
-        if (button_text.equals("2")) {
-            input.setText("2");
-        }
-        if (button_text.equals("3")) {
-            input.setText("3");
-        }
-        if (button_text.equals("4")) {
-            input.setText("4");
-        }
-        if (button_text.equals("5")) {
-            input.setText("5");
-        }
-        if (button_text.equals("6")) {
-            input.setText("6");
-        }
-        if (button_text.equals("7")) {
-            input.setText("7");
-        }
-        if (button_text.equals("8")) {
-            input.setText("8");
-        }
-        if (button_text.equals("9")) {
-            input.setText("9");
-        }
-        if (button_text.equals("0")) {
-            input.setText("0");
-        }
-        if (button_text.equals("+")) {
-            num_1 = Integer.parseInt(input.getText());
-            operation = 1;
-            input.setText("+");
-        }
-        if (button_text.equals("-")) {
-            num_1 = Integer.parseInt(input.getText());
-            operation = 2;
-            input.setText("-");
-        }
-        if (button_text.equals("*")) {
-            num_1 = Integer.parseInt(input.getText());
-            operation = 3;
-            input.setText("*");
-        }
-        if (button_text.equals("/")) {
-            num_1 = Integer.parseInt(input.getText());
-            operation = 4;
-            input.setText("/");
-        }
-        if (button_text.equals("C")) {
-            input.setText("");
-        }
-        if (button_text.equals("=")) {
-            num_2 = Integer.parseInt(input.getText());
-            switch (operation) {
-                case 1:
-                    sum = num_1 + num_2;
-                    break;
-                case 2:
-                    sum = num_1 - num_2;
-                    break;
-                case 3:
-                    sum = num_1 * num_2;
-                    break;
-                case 4:
-                    sum = num_1 / num_2;
-                    if(num_1 == 0 || num_2 == 0) {
-                        input.setText("Œ¯Ë·Í‡");
-                    } else {
-                        input.setText("" + sum);
-                    }
-                    break;
-                default:
-                    sum = 0;
-            }
-            input.setText("" + sum);
 
-        }
     }
 
 }
