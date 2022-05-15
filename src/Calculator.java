@@ -10,15 +10,40 @@ import static javax.swing.JTextField.*;
 public class Calculator implements ActionListener {
     public JFrame window = new JFrame("Calculator");
     public JTextField input = new JTextField();
+    public JTextField output = new JTextField();
     double num_1 = 0;
     double num_2 = 0;
     int operation = 0;
     double sum;
 
+    public KeyListener keyListener = new KeyListener() {
+        @Override
+        public void keyTyped(KeyEvent e) {
+            System.out.println(e);
+        }
+
+        @Override
+        public void keyPressed(KeyEvent e) {
+            System.out.println(e);
+            if(e.getKeyCode() == KeyEvent.VK_ESCAPE)
+                input.setText("");
+            if(e.getKeyCode() == KeyEvent.VK_ENTER)
+                result();
+
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+            System.out.println(e);
+
+
+        }
+    };
+
 
     public Calculator() {
 
-        window.setSize(400, 480);
+        window.setSize(500, 480);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.getContentPane().setBackground(Color.white);
         window.setLocationRelativeTo(null);
@@ -30,22 +55,11 @@ public class Calculator implements ActionListener {
 
 
         window.setVisible(true);
-        KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
-        manager.addKeyEventDispatcher(new keyDispatcher());
+
+
 
     }
-    class keyDispatcher implements KeyEventDispatcher {
 
-        @Override
-        public boolean dispatchKeyEvent(KeyEvent e) {
-//            if(e.getKeyCode() == KeyEvent.VK_ENTER)
-//                result();
-//            if(e.getKeyCode() == KeyEvent.VK_1)
-//                input.setText("");
-
-            return false;
-        }
-    }
 
     public void enter_area() {
         input.setFont(new Font("Arial", Font.BOLD, 25));
@@ -54,27 +68,11 @@ public class Calculator implements ActionListener {
         input.setHorizontalAlignment(RIGHT);
 
         window.add(input);
-        KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
-        manager.addKeyEventDispatcher(new KeyDispat());
+        input.addKeyListener(keyListener);
     }
 
-    class KeyDispat implements KeyEventDispatcher {
 
-        @Override
-        public boolean dispatchKeyEvent(KeyEvent e) {
-            if(e.getKeyCode() == KeyEvent.VK_ENTER)
-                result();
-            if(e.getKeyCode() == KeyEvent.VK_EQUALS && e.isShiftDown())
-                num_1 = Double.parseDouble(input.getText());
-                operation = 1;
-                input.setText("");
-            if(e.getKeyCode() == KeyEvent.VK_ESCAPE)
-                input.setText("");
-            if(e.getKeyCode() == KeyEvent.VK_NUMPAD1)
-                input.setText("1");
-            return false;
-        }
-    }
+
 
 
 
@@ -87,6 +85,7 @@ public class Calculator implements ActionListener {
             for (int e = 0; e < arr[i].length; e++) {
                 JButton jbutton = new JButton();
                 jbutton.setText(arr[i][e]);
+                jbutton.setFont(new Font("Arial", Font.BOLD, 25));
                 jbutton.setMargin(new Insets(0, 0, 0, 0));
                 if (arr[i].length == 3 && e == 2) {
                     jbutton.setBounds(16 + e * 62, 55 + i * 62, 122, 60);
@@ -96,7 +95,6 @@ public class Calculator implements ActionListener {
                 jbutton.setFocusable(false);
                 window.add(jbutton);
                 jbutton.addActionListener(this);
-
             }
 
         }
@@ -167,23 +165,7 @@ public class Calculator implements ActionListener {
                 break;
             case "=":
                 result();
-//                switch (operation) {
-//                    case 1:
-//                        sum = num_1 + num_2;
-//                        break;
-//                    case 2:
-//                        sum = num_1 - num_2;
-//                        break;
-//                    case 3:
-//                        sum = num_1 * num_2;
-//                        break;
-//                    case 4:
-//                        sum = num_1 / num_2;
-//                        break;
-//                    default:
-//                        sum = 0;
-//                }
-//                input.setText("" + sum);
+
                 break;
 
         }
@@ -211,6 +193,9 @@ public class Calculator implements ActionListener {
         input.setText("" + sum);
 
     }
+
+
+
 
 }
 
