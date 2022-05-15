@@ -1,8 +1,11 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 
 import static javax.swing.JTextField.*;
@@ -10,7 +13,13 @@ import static javax.swing.JTextField.*;
 public class Calculator implements ActionListener {
     public JFrame window = new JFrame("Calculator");
     public JTextField input = new JTextField();
-    public JTextField output = new JTextField();
+
+    public ArrayList<String> resultlist = new ArrayList<String>();
+
+    JScrollPane scroll;
+
+    public JList output = new JList();
+    public JLabel output_result = new JLabel();
     double num_1 = 0;
     double num_2 = 0;
     int operation = 0;
@@ -43,15 +52,19 @@ public class Calculator implements ActionListener {
 
     public Calculator() {
 
-        window.setSize(500, 480);
+        window.setSize(450, 420);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.getContentPane().setBackground(Color.white);
+        window.getContentPane().setBackground(Color.WHITE);
         window.setLocationRelativeTo(null);
-        window.setResizable(true);
+        window.setResizable(false);
         window.setLayout(null);
+
 
         enter_area();
         buttons();
+        result_area();
+        label_area();
+        logo();
 
 
         window.setVisible(true);
@@ -64,7 +77,7 @@ public class Calculator implements ActionListener {
     public void enter_area() {
         input.setFont(new Font("Arial", Font.BOLD, 25));
         input.setBackground(Color.WHITE);
-        input.setBounds(5, 5, 280, 40);
+        input.setBounds(16, 5, 249, 40);
         input.setHorizontalAlignment(RIGHT);
 
         window.add(input);
@@ -171,7 +184,7 @@ public class Calculator implements ActionListener {
         }
 
     }
-    private void result() {
+    private Object result() {
         num_2 = Double.parseDouble(input.getText());
 
         switch (operation) {
@@ -191,8 +204,48 @@ public class Calculator implements ActionListener {
                 sum = 0;
         }
         input.setText("" + sum);
+        resultlist.add(String.valueOf(sum));
+        output.setListData(resultlist.toArray());
 
+        return null;
     }
+
+    public void label_area() {
+        output_result.setText("История");
+        output_result.setBounds(305,50,200,40);
+        output_result.setFont(new Font("Arial",Font.TRUETYPE_FONT, 25));
+        window.add(output_result);
+    }
+
+    public void result_area() {
+        scroll = new JScrollPane(output);
+        scroll.setBounds(290, 85,125,100);
+        scroll.setBackground(new Color(255,255,255,0));
+        window.add(scroll);
+        input.requestFocus();
+
+        output.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                System.out.println(e);
+                System.out.println(output.getSelectedValue());
+                String selectedValue = (String) output.getSelectedValue();
+                if(selectedValue != null && !selectedValue.isEmpty())
+                    input.setText(selectedValue);
+                input.requestFocus();
+
+
+            }
+        });
+    }
+
+    private void logo() {
+        JLabel fon = new JLabel();
+        fon.setBounds(0,0,450,420);
+        fon.setIcon(new ImageIcon(getClass().getResource("/res/fon.jpg")));
+        window.add(fon);
+    }
+
 
 
 
