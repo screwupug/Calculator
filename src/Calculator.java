@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 
 import static javax.swing.JTextField.*;
+import static javax.swing.text.StyleConstants.getBackground;
 
 public class Calculator implements ActionListener {
     public JFrame window = new JFrame("Calculator");
@@ -18,7 +19,16 @@ public class Calculator implements ActionListener {
 
     JScrollPane scroll;
 
-    public JList output = new JList();
+    public JList output = new JList() {
+
+        protected void paintComponent(Graphics g) {
+            g.setColor(getBackground());
+            g.fillRect(0, 0, getWidth(), getHeight());
+            super.paintComponent(g);
+        }
+    };
+
+
     public JLabel output_result = new JLabel();
     double num_1 = 0;
     double num_2 = 0;
@@ -105,12 +115,15 @@ public class Calculator implements ActionListener {
                 } else {
                     jbutton.setBounds(16 + e * 62, 55 + i * 62, 60, 60);
                 }
+                jbutton.setBackground(new Color(255,255,255,0));
+                jbutton.setOpaque(false);
                 jbutton.setFocusable(false);
                 window.add(jbutton);
                 jbutton.addActionListener(this);
             }
 
         }
+
 
     }
 
@@ -218,9 +231,11 @@ public class Calculator implements ActionListener {
     }
 
     public void result_area() {
+        output.setBackground(new Color(255,255,255,0));
+        output.setOpaque(true);
         scroll = new JScrollPane(output);
-        scroll.setBounds(290, 85,125,100);
-        scroll.setBackground(new Color(255,255,255,0));
+        scroll.setBounds(290, 85,125,250);
+        scroll.setOpaque(false);
         window.add(scroll);
         input.requestFocus();
 
